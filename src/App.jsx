@@ -1,15 +1,15 @@
+import Features from "./Components/Features";
 import About from "./Components/About";
 import Hero from "./Components/Hero";
 import Navbar from "./Components/Navbar";
 
 const App = () => {
   return (
-    <main className="relative min-h-screen w-screen overflow-x-hidden">
+    <main className="relative min-h-screen w-screen overflow-x-hidden bg-amber-50">
       <Navbar />
       <Hero />
       <About />
-
-      <section className="z-0 min-h-screen bg-blue-500" />
+      <Features />
     </main>
   );
 };
