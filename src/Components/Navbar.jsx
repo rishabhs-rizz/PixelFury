@@ -1,14 +1,43 @@
 import React, { useRef, useState, useEffect } from "react";
 import Button from "./Button";
 import { TiLocationArrow } from "react-icons/ti";
+import { useWindowScroll } from "react-use";
+import gsap from "gsap";
 
 const navItems = ["Nexus", "Vault", "Prologue", "About", "Contact"];
 
 const Navbar = () => {
   const [isaudioPlaying, setIsAudioPlaying] = useState(false);
   const [isAudioIndicatorVisible, setIsAudioIndicatorVisible] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
   const navcontainerRef = useRef(null);
   const audioElementRef = useRef(null);
+
+  const { y: currentScrollY } = useWindowScroll();
+
+  useEffect(() => {
+    if (currentScrollY === 0) {
+      setIsNavbarVisible(true);
+      navcontainerRef.current.classList.remove("floating-nav");
+    } else if (currentScrollY > lastScrollY) {
+      setIsNavbarVisible(false);
+      navcontainerRef.current.classList.add("floating-nav");
+    } else if (currentScrollY < lastScrollY) {
+      setIsNavbarVisible(true);
+      navcontainerRef.current.classList.add("floating-nav");
+    }
+    setLastScrollY(currentScrollY);
+  }, [currentScrollY, lastScrollY]);
+
+  useEffect(() => {
+    gsap.to(navcontainerRef.current, {
+      y: isNavbarVisible ? 0 : -100,
+      opacity: isNavbarVisible ? 1 : 0,
+      duration: 0.2,
+      ease: "power2.out",
+    });
+  }, [isNavbarVisible]);
 
   const ToggleAudioIndicator = () => {
     setIsAudioPlaying((prev) => !prev);
@@ -27,7 +56,7 @@ const Navbar = () => {
     >
       <header className="absolute top-1/2 w-full -translate-y-1/2 ">
         <nav className="flex size-full items-center justify-between p-4">
-          <div className="flex items-center gap-7">
+          <div className="flex items-center gap-7 text-white">
             <img src="/img/logo.png" alt="logo" className="w-10" />{" "}
             <Button
               id="product-button"
@@ -38,16 +67,19 @@ const Navbar = () => {
           </div>
           <div className="flex h-full items-center">
             {" "}
-            <div className="hidden md:block">
-              {navItems.map((item, index) => (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  className="nav-hover-btn"
-                >
-                  {item}
-                </a>
-              ))}
+            <div>
+              {navItems.map((item, index) => {
+                console.log("Rendering nav item:", item); // ✅ Check if this logs
+                return (
+                  <a
+                    key={item}
+                    href={`#${item.toLowerCase()}`}
+                    className="nav-hover-btn"
+                  >
+                    {item}
+                  </a>
+                );
+              })}
             </div>
             <button
               className="ml-10 flex items-center space-x-0.5"
