@@ -3,6 +3,8 @@ import About from "./Components/About";
 import Hero from "./Components/Hero";
 import Navbar from "./Components/Navbar";
 import Story from "./Components/Story";
+import Contact from "./Components/Contact";
+import Footer from "./Components/Footer";
 
 const App = () => {
   return (
@@ -12,6 +14,8 @@ const App = () => {
       <About />
       <Features />
       <Story />
+      <Contact />
+      <Footer />
     </main>
   );
 };
