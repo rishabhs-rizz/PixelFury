@@ -6,7 +6,7 @@ import Story from "./Components/Story";
 
 const App = () => {
   return (
-    <main className="relative min-h-screen w-screen overflow-x-hidden bg-amber-50">
+    <main className="relative min-h-screen w-screen overflow-x-hidden">
       <Navbar />
       <Hero />
       <About />

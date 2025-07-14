@@ -1,6 +1,8 @@
 import React, { useRef } from "react";
 import AnimatedTitle from "./AnimatedTitle";
 import gsap from "gsap";
+import RoundedCorners from "./RoundedCorners";
+import Button from "./Button";
 
 const Story = () => {
   const frameRef = useRef("null");
@@ -68,6 +70,24 @@ const Story = () => {
                 />
               </div>
             </div>
+
+            <RoundedCorners />
+          </div>
+        </div>
+
+        <div className="flex w-full justify-center md:justify-end -mt-10 md:-mt-24 lg:-mt-32 px-4 md:px-10">
+          <div className="flex w-full max-w-lg flex-col items-center md:items-start text-center md:text-left space-y-4">
+            <p className="font-circular text-violet-50 leading-relaxed">
+              Where realms converge, lies Zentry and the Boundless pillar.
+              Discover its secrets and shape your fate amidst infinite
+              opportunities.
+            </p>
+
+            <Button
+              id="realm-button"
+              title={"Discover Prologue"}
+              containerClass={"w-fit"}
+            />
           </div>
         </div>
       </div>
